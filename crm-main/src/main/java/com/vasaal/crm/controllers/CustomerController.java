@@ -1,6 +1,7 @@
 package com.vasaal.crm.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vasaal.crm.entities.Customer;
 import com.vasaal.crm.repository.CustomerRepository;
+
 
 @Controller
 @RequestMapping(path = "/customer")
@@ -50,20 +52,26 @@ public class CustomerController {
 
         return "customers/profil";
     }
+     
+    List<Customer> tcustomers;
     
-    ArrayList<Customer> customer = new ArrayList<>();
 
+    /**
+     * @param id
+     * @return
+     */
     private Customer findCustomerById(long id) {
         Customer customerFinded = null;
-
-            for (Customer customer : this.customer) {
+        tcustomers = this.customerRepository.findAll();
+        for (int i = 0; i <= tcustomers.size() - 1; i++) {
+            Customer customer = tcustomers.get(i);
                 if (customer.getId() == id) {
                     customerFinded = customer;
                     break;
                 }
-            }
-            return customerFinded;
         }
+        return customerFinded;
+    }
 
     // AJOUTER CLIENT
     
@@ -72,6 +80,7 @@ public class CustomerController {
         Customer customerFinded = this.findCustomerById(id);
 
         model.addAttribute(MODEL_ONE, customerFinded);
+        System.out.print("e suis sorti");
         return "customers/form";
     }
 
@@ -79,14 +88,16 @@ public class CustomerController {
     @PostMapping(CommonConstant.ROUTE_SAVE)
     public String saveCustomer(Model model, @ModelAttribute Customer CustomerSubmit) {
         Customer customerFinded = this.findCustomerById(CustomerSubmit.getId());
-
+        
         if (customerFinded != null) {
             customerFinded.setFirstname(CustomerSubmit.getFirstname());
             customerFinded.setLastname(CustomerSubmit.getLastname());
             customerFinded.setId(CustomerSubmit.getId());
         }
 
-        return "redirect:/customers/" + customerFinded.getId() + "/show";
+        this.customerRepository.save(customerFinded);
+
+        return "redirect:/customer/" + customerFinded.getId() + "/show";
     }
 
 

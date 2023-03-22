@@ -29,4 +29,9 @@ public class Product {
     @Column(nullable = false)
     private String hexColor;
 
+
+    public String fullname() {
+        return String.format("%s", this.name.toUpperCase());
+    }
+
 }

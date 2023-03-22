@@ -9,14 +9,78 @@
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
   crossorigin="anonymous"></script>
+<style type="text/css">
+@import
+  url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap")
+  ;
+
+body {
+  background-color: #545454;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+}
+
+.container {
+  height: 100vh;
+}
+
+.card {
+  width: 380px;
+  border: none;
+  border-radius: 15px;
+  padding: 8px;
+  background-color: #fff;
+  position: relative;
+  height: 370px;
+}
+
+.upper {
+  height: 100px;
+}
+
+.upper img {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.user {
+  position: relative;
+}
+
+.profile img {
+  height: 80px;
+  width: 80px;
+  margin-top: 2px;
+}
+
+.profile {
+  position: absolute;
+  top: -50px;
+  left: 38%;
+  height: 90px;
+  width: 90px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+}
+
+.follow {
+  border-radius: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 35px;
+}
+
+.stats span {
+  font-size: 29px;
+}
 </style>
 </head>
 <body>
 
-
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/customer/">Customers</a>
+      <a class="navbar-brand" href="/product/">Products</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,7 +98,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/product/">Products</a>
+            <a class="nav-link active" aria-current="page" href="/customer/">Customers</a>
           </li>
 
           <li class="nav-item">
@@ -51,36 +115,37 @@
 
 
 
+
+
+
+
+
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="card">
   
-
-
-
-  <div class="container d-flex justify-content-center align-items-center">
-    <div class="card">
-
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Firstname</th>
-            <th scope="col">Lastname</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="customer: ${customer}">
-            <th scope="row" th:text="${customer.id}" />
-            <td th:text="${customer.firstname}" />
-            <td th:text="${customer.lastname}" />
-            <td>
-                <a th:href="@{'/customer/' + ${customer.id} + '/show'}">Show</a>
-                <a th:href="@{|/customer/${customer.id}/edit|}">Edit</a>
-              </td>
-          </tr>
-        </tbody>
-    </table>
-
+        <form method="POST" th:action="@{/product/save}" th:object="${current_product}">
+            
+            <label>Name</label>
+            <input type="text" th:field="*{name}" />
+            <br />
+            <label>Prix</label>
+            <input type="text" th:field="*{price}" />
+            <br />
+            <label>Hex_color</label>
+            <input type="text" th:field="*{hex_color}" />
+            <br />
+            <label>Surface</label>
+            <input type="text" th:field="*{surface}" />
+            <br />
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{id}" />
+    
+            <input type="submit" value="Submit" />
+            
+           
+        </form>
+    
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

@@ -1,6 +1,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<link
+<!-- For PRODUCTION -->
+<!-- <link
   href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
   rel="stylesheet"
   integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
@@ -8,15 +9,20 @@
 <script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-  crossorigin="anonymous"></script>
-</style>
+  crossorigin="anonymous"></script> -->
+<!-- For Dev -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<script th:src="@{/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
+
+<link th:href="@{/css/main.css}" rel="stylesheet">
+<script th:src="@{/js/main.js}" type="text/javascript"></script>
 </head>
 <body>
 
 
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/customer/">Customers</a>
+      <a class="navbar-brand" href="/product/">Products</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,7 +40,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/product/">Products</a>
+            <a class="nav-link active" aria-current="page" href="/customer/">Customers</a>
           </li>
 
           <li class="nav-item">
@@ -51,35 +57,54 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
   
-
-
-
   <div class="container d-flex justify-content-center align-items-center">
     <div class="card">
+      <div class="upper">
+        <img src="" class="img-fluid">
+      </div>
+      <div class="user text-center">
+        <div class="profile">
+          <img src="https://im.qccdn.fr/node/guide-d-achat-bois-de-chauffage-1827/original-41611.jpg" class="rounded-circle"
+            width="80">
+        </div>
+      </div>
 
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Firstname</th>
-            <th scope="col">Lastname</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="customer: ${customer}">
-            <th scope="row" th:text="${customer.id}" />
-            <td th:text="${customer.firstname}" />
-            <td th:text="${customer.lastname}" />
-            <td>
-                <a th:href="@{'/customer/' + ${customer.id} + '/show'}">Show</a>
-                <a th:href="@{|/customer/${customer.id}/edit|}">Edit</a>
-              </td>
-          </tr>
-        </tbody>
-    </table>
+      <div class="mt-5 text-center">
+        <h4 class="mb-0" th:text="${current_product.fullname}"></h4>
+        <span class="text-muted d-block mb-2"></span>
+<!--        <button class="btn btn-primary btn-sm follow">Follow</button>
+-->
+         <div
+          class="d-flex justify-content-between align-items-center mt-4 px-4">
 
+          <div style="font-size:25px;" class="stats">
+            <h6 class="mb-0">Nom et Prenom:</h6>
+           <span th:text="${current_product.name}"></span>
+          </div>
+
+          <div style="font-size:25px;"class="stats">
+            <h6 class="mb-0">price :</h6>
+             <span th:text="${current_product.price}"></span>
+          </div>
+
+          <div style="font-size:25px;"class="stats">
+            <h6 class="mb-0" >surface :</h6>
+                <span th:text="${current_product.surface}"></span>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </body>

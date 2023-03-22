@@ -47,4 +47,10 @@ public class Customer {
         return String.format("%s %s", this.firstname, this.lastname.toUpperCase());
     }
 
+
+
+    public static int size() {
+        return 0;
+    }
+
 }

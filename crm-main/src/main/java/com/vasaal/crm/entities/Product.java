@@ -26,8 +26,9 @@ public class Product {
     private BigDecimal price;
     @Column(nullable = false)
     private String surface;
+
     @Column(nullable = false)
-    private String hexColor;
+    private String hex_color;
 
 
     public String fullname() {

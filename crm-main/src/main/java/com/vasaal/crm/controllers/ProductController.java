@@ -83,7 +83,7 @@ public class ProductController {
         return "products/form";
     }
 
-
+// VOIR LE PROFIL DU PRODUCT
     @PostMapping(CommonConstant.ROUTE_SAVE)
     public String saveProduct(Model model, @ModelAttribute Product ProductSubmit) {
         Product productFinded = this.findProductById(ProductSubmit.getId());
@@ -96,7 +96,7 @@ public class ProductController {
 
         this.productRepository.save(productFinded);
 
-        return "redirect:/products/" + productFinded.getId() + "/show";
+        return "redirect:/product/" + productFinded.getId() + "/show";
     }
 
 

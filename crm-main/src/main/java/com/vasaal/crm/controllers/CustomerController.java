@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -73,26 +74,25 @@ public class CustomerController {
         return customerFinded;
     }
 
-    // AJOUTER CLIENT
+    
     
     @GetMapping(CommonConstant.ROUTE_EDIT)
     public String editCustomer(Model model, @PathVariable("id") long id) {
         Customer customerFinded = this.findCustomerById(id);
 
         model.addAttribute(MODEL_ONE, customerFinded);
-        System.out.print("e suis sorti");
         return "customers/form";
     }
 
 
     @PostMapping(CommonConstant.ROUTE_SAVE)
-    public String saveCustomer(Model model, @ModelAttribute Customer CustomerSubmit) {
-        Customer customerFinded = this.findCustomerById(CustomerSubmit.getId());
+    public String saveCustomer(Model model, @ModelAttribute Customer customerSubmit) {
+        Customer customerFinded = this.findCustomerById(customerSubmit.getId());
         
         if (customerFinded != null) {
-            customerFinded.setFirstname(CustomerSubmit.getFirstname());
-            customerFinded.setLastname(CustomerSubmit.getLastname());
-            customerFinded.setId(CustomerSubmit.getId());
+            customerFinded.setFirstname(customerSubmit.getFirstname());
+            customerFinded.setLastname(customerSubmit.getLastname());
+            customerFinded.setId(customerSubmit.getId());
         }
 
         this.customerRepository.save(customerFinded);
@@ -103,12 +103,34 @@ public class CustomerController {
 
 
 
-    // SUPPRIMER UN CLIENT
-    @DeleteMapping(path = "/delete")
-    public @ResponseBody String deleteCustomer(@RequestParam long id) {
+        //Ajouter un client 
 
-        customerRepository.deleteById(id);
-        return "Customer deleted";
+        @GetMapping(CommonConstant.ROUTE_CREATE)
+        public String creatCustomer(Model model) {
+
+
+            return "customers/create";
+        }
+    
+    
+
+        //Ajouter un client sauvegarde
+
+    @PostMapping(CommonConstant.ROUTE_SAVECREATE)
+    public String createCustomer(Model model, @ModelAttribute Customer customerSubmit,@RequestParam("firstname") String firstname , @RequestParam("lastname") String lastname , @RequestParam("address") String address , @RequestParam("email") String email ,  @RequestParam("phoneNumber") String phoneNumber) {
+        Customer newCustomer = new Customer();
+        newCustomer.setFirstname(firstname);
+        newCustomer.setLastname(lastname);
+        newCustomer.setAddress(address);
+        newCustomer.setEmail(email);
+        newCustomer.setPhoneNumber(phoneNumber);
+        this.customerRepository.save(newCustomer);
+
+        return  "customers/list";
     }
+
+
+
+
 
 }

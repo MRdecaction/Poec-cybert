@@ -120,21 +120,29 @@ body {
 
 
 
-
+  
 
     <div class="container d-flex justify-content-center align-items-center">
       <div class="card">
   
-        <form method="POST" th:action="@{/customer/save}" th:object="${current_customer}">
+        <form method="POST" th:action="@{/customer/save/create}" >
             
-            <label>Firstname</label>
-            <input type="text" th:field="*{firstname}" />
+             <label>Firstname</label>
+            <input type="text" th:id="firstname"  name="firstname" />
             <br />
             <label>Lastname</label>
-            <input type="text" th:field="*{lastname}" />
+            <input type="text" th:id="lastname"  name="lastname" />
             <br />
-            <input type="hidden" th:field="*{id}" />
-    
+            <label>address</label>
+            <input type="text" th:id="address" name="address"/>
+            <br />
+            <label>email</label>
+            <input type="text" th:id="email" name="email"/>
+            <br />
+            <label>phoneNumber</label>
+            <input type="text" th:id="phoneNumber" name="phoneNumber" />
+            <br />
+        
             <input type="submit" value="Submit" />
             
            

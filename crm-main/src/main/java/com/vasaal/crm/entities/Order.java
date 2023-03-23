@@ -1,6 +1,7 @@
 package com.vasaal.crm.entities;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,5 +59,10 @@ public class Order {
             totalPriceTmp = totalPriceTmp.add(orderItem.getTotalPrice());
         }
         this.totalPrice = totalPriceTmp;
+    }
+
+    public String fullname() {
+        BigDecimal scaledTotalPrice = this.totalPrice.setScale(2, RoundingMode.HALF_UP);
+        return String.format("%s", scaledTotalPrice.toString());
     }
 }
